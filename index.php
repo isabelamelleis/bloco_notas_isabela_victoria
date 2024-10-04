@@ -33,15 +33,15 @@
             </tr>";
             while($row = $result_read -> fetch_assoc()){
                 echo "<tr>
-                        <td> {$row['titulo_nota']} </td>
-                        <td> {$row['anotacao']} </td>
-                        <td> {$row['prioridade_nota']} </td>
-                        <td> {$row['email_usuario']} </td>
-                        <td> {$row['data_nota']} </td>
-                        <td>
-                            <a href='update_notas.php?editar_id={$row['id_nota']}'>&#128393;</a> |
-                            <a href='index.php?deletar_id={$row['id_nota']}'>&#128465;</a>
-                        </td>
+                    <td> {$row['titulo_nota']} </td>
+                    <td> {$row['anotacao']} </td>
+                    <td> {$row['prioridade_nota']} </td>
+                    <td> {$row['email_usuario']} </td>
+                    <td> {$row['data_nota']} </td>
+                    <td>
+                        <a href='update_notas.php?editar_id={$row['id_nota']}'>&#128393;</a> |
+                        <a href='index.php?deletar_id={$row['id_nota']}'>&#128465;</a>
+                    </td>
                     </tr>";
         }
             echo "</table>";
@@ -52,3 +52,21 @@
     ?>
 </body>
 </html>
+
+<?php
+
+    if(isset($_GET['deletar_id'])) {
+
+        $id_nota = $_GET['deletar_id'];
+        $sql_deletar = "DELETE FROM nota WHERE id_nota = '$id_nota'";
+        header('Location: index.php');
+
+        if ($conn -> query($sql_deletar) === TRUE) {
+            echo "<br> Dados excluídos com sucesso.";
+        } else {
+            echo "Erro: " . $sql . "<br>" . $conn->error;
+        }
+    }
+
+    $conn -> close();
+?>
